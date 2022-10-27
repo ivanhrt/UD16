@@ -1,0 +1,63 @@
+/*Ejercicio 2*/
+
+-- 1
+SELECT apellidos FROM empleados;
+
+-- 2
+SELECT DISTINCT apellidos FROM empleados;
+
+-- 3
+SELECT * FROM empleados WHERE apellidos="Smith";
+
+-- 4
+SELECT * FROM empleados WHERE apellidos="Smith" OR apellidos="Rogers";
+
+-- 5
+SELECT * FROM empleados WHERE departamento=14;
+
+-- 6
+SELECT * FROM empleados WHERE departamento=37 OR departamento=77;
+
+-- 7
+SELECT * FROM empleados WHERE apellidos LIKE 'P%';
+
+-- 8
+SELECT SUM(presupuesto) FROM departamentos;
+
+-- 9
+SELECT COUNT(*) as empleados, departamentos.codigo as departamento FROM empleados JOIN departamentos WHERE empleados.departamento=departamentos.codigo GROUP BY departamentos.codigo;
+
+-- 10
+SELECT * FROM empleados e JOIN departamentos d ON e.departamento = d.codigo;
+
+-- 11
+SELECT e.nombre, e.apellidos, d.nombre, d.presupuesto FROM empleados e JOIN departamentos d ON e.departamento = d.codigo;
+
+-- 12
+SELECT e.nombre, e.apellidos FROM empleados e JOIN departamentos d ON e.departamento = d.codigo WHERE d.presupuesto > 60000;
+
+-- 13
+SELECT * FROM departamentos WHERE presupuesto > (SELECT AVG(presupuesto) FROM departamentos);
+
+-- 14
+SELECT d.nombre FROM departamentos d JOIN empleados e ON e.departamento = d.codigo GROUP BY d.nombre HAVING COUNT(e.dni) > 1;
+
+-- 15
+INSERT INTO departamentos (codigo, nombre, presupuesto) VALUES (11, "Calidad", 40000);
+INSERT INTO empleados (dni, nombre, apellidos, departamento) VALUES (89267109, "Esther", "Vázquez", 11);
+
+-- 16
+-- Hay que añadir SET SQL_SAFE_UPDATES = 0;
+UPDATE departamentos SET presupuesto=presupuesto*0.9;
+
+-- 17
+UPDATE empleados SET departamento=14 WHERE departamento=77;
+
+-- 18
+DELETE FROM empleados WHERE departamento=14;
+
+-- 19
+DELETE FROM empleados WHERE departamento = (SELECT codigo FROM departamentos WHERE presupuesto > 60000);
+
+-- 20
+DELETE FROM empleados;
